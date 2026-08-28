@@ -1,10 +1,13 @@
 ---
 import type { Project } from '@/data/projects'
+import type { Lang } from '@/lib/i18n'
 
 interface Props {
   project: Project
+  lang: Lang
+  ctaLabel: string
 }
-const { project } = Astro.props
+const { project, lang, ctaLabel } = Astro.props
 ---
 
 <a
@@ -17,19 +20,16 @@ const { project } = Astro.props
     <img src={project.iconSrc} alt="" width="40" height="40" class="rounded-xl shrink-0" />
     <div>
       <h3 class="font-bold text-lg text-slate-900 dark:text-white">{project.name}</h3>
-      <span
-        class="text-xs font-semibold uppercase tracking-wide"
-        style={`color: ${project.accentColor}`}
-      >
+      <span class="text-xs font-semibold uppercase tracking-wide" style={`color: ${project.accentColor}`}>
         {project.language}
       </span>
     </div>
   </div>
 
-  <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">{project.description}</p>
+  <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">{project.description[lang]}</p>
 
   <span class="text-sm font-medium text-primary-600 dark:text-primary-400 inline-flex items-center gap-1">
-    Mulai belajar
+    {ctaLabel}
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -42,8 +42,8 @@ const { project } = Astro.props
       stroke-linejoin="round"
       class="transition-transform group-hover:translate-x-1"
     >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
     </svg>
   </span>
 </a>

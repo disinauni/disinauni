@@ -1,22 +1,26 @@
 ---
 import '../styles/global.css'
+import type { Lang } from '@/lib/i18n'
 
 interface Props {
+  lang: Lang
   title?: string
   description?: string
 }
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://disinauni.my.id'
-const title = Astro.props.title || 'disinauni — Portal Belajar Coding'
-const description =
-  Astro.props.description ||
-  'Di manapun kita berada, harus selalu belajar agar bisa menikmati proses kehidupan dengan bijak. Portal belajar coding gratis & interaktif untuk siswa Indonesia — C++, Python, SQL, Go, dan Rust.'
+const { lang } = Astro.props
+const title = Astro.props.title
+const description = Astro.props.description
 const ogImage = `${siteUrl}/og-default.png`
 const canonicalUrl = siteUrl + Astro.url.pathname
+
+const otherLang = lang === 'id' ? 'en' : 'id'
+const alternatePath = Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), `/${otherLang}$1`)
 ---
 
 <!doctype html>
-<html lang="id" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,9 +33,13 @@ const canonicalUrl = siteUrl + Astro.url.pathname
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale" content={lang === 'id' ? 'id_ID' : 'en_US'} />
 
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Alternate languages -->
+    <link rel="alternate" hreflang={otherLang} href={siteUrl + alternatePath} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl + '/id'} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -79,6 +87,7 @@ const canonicalUrl = siteUrl + Astro.url.pathname
         url: siteUrl,
         logo: `${siteUrl}/favicon.svg`,
         sameAs: ['https://github.com/disinauni'],
+        inLanguage: lang === 'id' ? 'id-ID' : 'en-US',
       })}
     />
   </head>
@@ -87,7 +96,7 @@ const canonicalUrl = siteUrl + Astro.url.pathname
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white dark:focus:bg-slate-900 focus:text-primary-600 focus:rounded-lg focus:shadow-lg focus:border focus:border-primary-300 focus:outline-none focus:font-medium"
     >
-      Langsung ke konten
+      {lang === 'id' ? 'Langsung ke konten' : 'Skip to content'}
     </a>
     <slot />
   </body>

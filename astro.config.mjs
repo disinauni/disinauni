@@ -15,4 +15,13 @@ export default defineConfig({
   },
 
   integrations: [react(), sitemap()],
+
+  i18n: {
+    defaultLocale: 'id',
+    locales: ['id', 'en'],
+    routing: {
+      prefixDefaultLocale: true,
+      strategy: 'prefix-always',
+    },
+  },
 })

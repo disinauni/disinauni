@@ -2,7 +2,7 @@
   "name": "disinauni",
   "short_name": "disinauni",
   "description": "Di manapun kita berada, harus selalu belajar agar bisa menikmati proses kehidupan dengan bijak.",
-  "start_url": "/",
+  "start_url": "/id/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
