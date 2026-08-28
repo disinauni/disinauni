@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, sans-serif;
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-primary-200 dark:bg-primary-800 text-slate-900 dark:text-white;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "disinauni",
+  "short_name": "disinauni",
+  "description": "Di manapun kita berada, harus selalu belajar agar bisa menikmati proses kehidupan dengan bijak.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+---
+import type { Project } from '@/data/projects'
+
+interface Props {
+  project: Project
+}
+const { project } = Astro.props
+---
+
+<a
+  href={project.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group flex flex-col gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 transition-all hover:-translate-y-1 hover:shadow-xl hover:border-primary-300 dark:hover:border-primary-700"
+>
+  <div class="flex items-center gap-4">
+    <img src={project.iconSrc} alt="" width="40" height="40" class="rounded-xl shrink-0" />
+    <div>
+      <h3 class="font-bold text-lg text-slate-900 dark:text-white">{project.name}</h3>
+      <span
+        class="text-xs font-semibold uppercase tracking-wide"
+        style={`color: ${project.accentColor}`}
+      >
+        {project.language}
+      </span>
+    </div>
+  </div>
+
+  <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">{project.description}</p>
+
+  <span class="text-sm font-medium text-primary-600 dark:text-primary-400 inline-flex items-center gap-1">
+    Mulai belajar
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="transition-transform group-hover:translate-x-1"
+    >
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
+  </span>
+</a>

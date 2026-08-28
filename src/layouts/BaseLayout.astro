@@ -1,0 +1,94 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://disinauni.my.id'
+const title = Astro.props.title || 'disinauni — Portal Belajar Coding'
+const description =
+  Astro.props.description ||
+  'Di manapun kita berada, harus selalu belajar agar bisa menikmati proses kehidupan dengan bijak. Portal belajar coding gratis & interaktif untuk siswa Indonesia — C++, Python, SQL, Go, dan Rust.'
+const ogImage = `${siteUrl}/og-default.png`
+const canonicalUrl = siteUrl + Astro.url.pathname
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- OG Meta -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="id_ID" />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts (non-blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- Dark mode — runs before body render to avoid FOUC -->
+    <script is:inline>
+      ;(function () {
+        const theme =
+          localStorage.getItem('disinauni-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        if (theme === 'dark') document.documentElement.classList.add('dark')
+      })()
+    </script>
+
+    <!-- JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'disinauni',
+        description,
+        url: siteUrl,
+        logo: `${siteUrl}/favicon.svg`,
+        sameAs: ['https://github.com/disinauni'],
+      })}
+    />
+  </head>
+  <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors min-h-screen">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white dark:focus:bg-slate-900 focus:text-primary-600 focus:rounded-lg focus:shadow-lg focus:border focus:border-primary-300 focus:outline-none focus:font-medium"
+    >
+      Langsung ke konten
+    </a>
+    <slot />
+  </body>
+</html>
